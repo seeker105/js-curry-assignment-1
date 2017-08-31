@@ -45,7 +45,7 @@ const calculateTotals =
               return runningTotal + price
             }, 0)
           let newOb = {
-            customer: customer,
+            customer: currentCart.customer,
             total: total
           }
           resultArray.push(newOb)
