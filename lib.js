@@ -12,17 +12,14 @@ const cart =
     items
   })
 
-const listedPrice =
-  listing =>
-    name =>
-      name === listing.name
-        ? listing.price
-        : 0
-
-
-const findPrice = (listings) => {
-  
-}
+const simpleListing = 
+  listings => 
+  listings.reduce((
+    (listingOb, current) => {
+      listingOb[current.name] = current.price
+      return listingOb
+    }
+  ), {})
 
 /**
  * transform carts into an array of { customer, total }
@@ -30,29 +27,19 @@ const findPrice = (listings) => {
 const calculateTotals =
   listings =>
     carts => {
-      let result = carts.reduce(
-        (resultArray, currentCart) => {
-          let customer = currentCart.customer
-          let total = currentCart.items.reduce(
-            (runningTotal, currentItem) => {
-              let price = listings.reduce(
-                (priceFound, currentListing) => {
-                  let listingPrice = listedPrice(currentListing)(currentItem)
-                  if (listingPrice > 0) 
-                    priceFound = listingPrice
-                  return priceFound
-                }, 0)
-              return runningTotal + price
-            }, 0)
-          let newOb = {
-            customer: currentCart.customer,
-            total: total
-          }
-          resultArray.push(newOb)
-          return resultArray
-        }, [])
-      return result
-    }
+        listings = simpleListing(listings)
+        return carts.reduce(
+            (resultArray, currentCart) => {
+                resultArray.push({
+                    customer: currentCart.customer,
+                    total: currentCart.items.reduce(
+                        (runningTotal, currentItem) => {
+                        return runningTotal + listings[currentItem]
+                        }, 0)
+                })
+            return resultArray
+            }, [])
+        }   
 
 module.exports = {
   listing,
