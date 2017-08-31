@@ -9,7 +9,7 @@ const {
 const regularListings = [
   listing('detergent', 10),
   listing('hennessey', 100),
-  listing('carlo rozzi', 20),
+  listing('carlo rozzi', 30),
   listing('coffee', 5),
   listing('cookies', 6),
   listing('mountain dew', 2)
@@ -59,6 +59,8 @@ const carts = [
     'mountain dew'
   )
 ]
+
+  let y = 6
 
 const regularTotals = calculateTotals(regularListings)
 const saleTotals = calculateTotals(saleListings)
